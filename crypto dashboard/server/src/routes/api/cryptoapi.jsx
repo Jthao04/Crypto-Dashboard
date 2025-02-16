@@ -5,39 +5,46 @@ const CryptoPrice = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-//   useEffect(() => {
-//     const getCryptoData = async () => {
-//       try {
-//         const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
-//         if (!response.ok) {
-//           throw new Error('Failed to fetch data');
-//         }
-//         const data = await response.json();
-//         setPrice(data.bitcoin.usd);
-//         setLoading(false);
-//       } catch (error) {
-//         setError(error.message);
-//         setLoading(false);
-//       }
-//     };
+  const CRYPTO_API_KEY = process.env.CRYPTO_API_KEY || "";
 
-    getCryptoData();
-  }, []);
+  // This is an example
+  // useEffect(() => {
+  //   const getCryptoData = async () => {
+  //     try {
+  //       const response = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
+  //         method: 'GET',
+  //         headers: {
+  //           'X-CMC_PRO_API_KEY': API_KEY,
+  //           'Accept': 'application/json'
+  //         }
+  //       });
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  //       const data = await response.json();
+  //       const bitcoin = data.data.find(coin => coin.symbol === 'BTC');
+  //       setPrice(bitcoin.quote.USD.price.toFixed(2));
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //       setLoading(false);
+  //     }
+  //   };
 
-//   return (
-//     <div>
-//       <h1>Bitcoin Price</h1>
-//       <p>{price ? `Bitcoin Price in USD: $${price}` : 'Price not available'}</p>
-//     </div>
-//   );
+  //   getCryptoData();
+  // }, []);
+
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error}</div>;
+
+  // return (
+  //   <div>
+  //     <h1>Bitcoin Price</h1>
+  //     <p>Bitcoin Price in USD: ${price}</p>
+  //   </div>
+  // );
 };
 
 export default CryptoPrice;
