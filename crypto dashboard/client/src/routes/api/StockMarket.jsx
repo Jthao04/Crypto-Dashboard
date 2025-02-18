@@ -43,6 +43,7 @@ const StockMarket = () => {
 
   return (
     <div>
+      <h1>Stock Market</h1>
       <input
         type="text"
         value={symbol}
