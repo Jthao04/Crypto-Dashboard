@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const StockMarket = () => {
-  const [symbol, setSymbol] = useState("");
-  const [data, setData] = useState(null);
+function StockMarket() {
+  const [stocks, setStocks] = useState([]);
+  const [symbol, setSymbol] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
 
   const fetchStockData = async () => {
-    if (!symbol) return;
-    
     setLoading(true);
     setError(null);
 
-    const API_KEY = "09PQOHW6GU7YQVV1";
+    const API_KEY = import.meta.env.VITE_ALPHAVANTAGE_API_KEY;
     const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${API_KEY}`;
 
     try {
@@ -62,8 +61,8 @@ const StockMarket = () => {
           <p>Volume: {data.volume}</p>
         </div>
       )}
-      </div>
-    );
-  };
-  
-  export default StockMarket;
+    </div>
+  );
+}
+
+export default StockMarket;
