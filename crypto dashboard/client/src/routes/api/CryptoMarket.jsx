@@ -7,27 +7,23 @@ function CryptoMarket() {
   const [error, setError] = useState(null);
 
   const fetchCryptoData = async () => {
-    if (!search) return;
-
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
-        method: 'GET',
-        headers: {
-          'X-CMC_PRO_API_KEY': 'a5b25488-ae62-4407-8c05-50af80c00207',
-          'Accept': 'application/json',
-        },
-      });
+      const response = await fetch(`https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&api_key=${import.meta.env.VITE_CRYPTOCOMPARE_API_KEY}`);
 
       if (!response.ok) {
+        const errorDetails = await response.json();
+        console.error('Error response from CryptoCompare API:', errorDetails);
         throw new Error('Failed to fetch data');
       }
 
       const result = await response.json();
-      setCrypto(result.data || []);
+      console.log('API response:', result);
+      setCrypto(result.Data || []);
     } catch (error) {
+      console.error('Error details:', error);
       setError('Error fetching crypto data');
     } finally {
       setLoading(false);
@@ -35,13 +31,13 @@ function CryptoMarket() {
   };
 
   const filteredCrypto = crypto.filter(coin =>
-    coin.name.toLowerCase().includes(search.toLowerCase()) ||
-    coin.symbol.toLowerCase().includes(search.toLowerCase())
+    coin.CoinInfo.Name.toLowerCase().includes(search.toLowerCase()) ||
+    coin.CoinInfo.FullName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div>
-      <h1>Crypto Market Data</h1>
+      <h1>Crypto Market</h1>
       <input
         type="text"
         placeholder="Search Crypto..."
@@ -54,13 +50,13 @@ function CryptoMarket() {
       {error && <p>{error}</p>}
 
       {filteredCrypto.map((coin) => (
-        <div key={coin.id}>
-          <p>Symbol: {coin.symbol}</p>
-          <p>Name: {coin.name}</p>
-          <p>Price: ${coin.quote.USD.price.toFixed(2)}</p>
-          <p>Change (24h): {coin.quote.USD.percent_change_24h.toFixed(2)}%</p>
-          <p>Volume (24h): ${coin.quote.USD.volume_24h.toLocaleString()}</p>
-          <p>Last Updated: {new Date(coin.last_updated).toLocaleString()}</p>
+        <div key={coin.CoinInfo.Id}>
+          <p>Symbol: {coin.CoinInfo.Name}</p>
+          <p>Name: {coin.CoinInfo.FullName}</p>
+          <p>Price: ${coin.RAW.USD.PRICE.toFixed(2)}</p>
+          <p>Change (24h): {coin.RAW.USD.CHANGEPCT24HOUR.toFixed(2)}%</p>
+          <p>Volume (24h): ${coin.RAW.USD.VOLUME24HOUR.toLocaleString()}</p>
+          <p>Last Updated: {new Date(coin.RAW.USD.LASTUPDATE * 1000).toLocaleString()}</p>
         </div>
       ))}
     </div>
