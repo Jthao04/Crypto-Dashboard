@@ -1,5 +1,5 @@
 // import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+// // import { useNavigate } from 'react-router-dom';
 
 // function Login() {
 //   const [username, setUsername] = useState('');
@@ -33,15 +33,8 @@
 //       // Assuming the response contains a token or some indication of successful login
 //       localStorage.setItem('token', 'mock-token');
 
-//       // Redirect based on a condition (e.g., user preference or role)
-//       const userPreference = 'crypto'; // Replace this with actual logic to determine user preference
-//       if (userPreference === 'crypto') {
-//         navigate('/crypto-market');
-//       } else if (userPreference === 'stock') {
-//         navigate('/stock-market');
-//       } else {
-//         navigate('/crypto-market'); // Default redirection
-//       }
+//       // Redirect to the home page after successful login
+//       navigate('/');
 //     } catch (error) {
 //       console.error('Error details:', error);
 //       setError('Error logging in');

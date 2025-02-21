@@ -7,26 +7,35 @@ function CryptoMarket() {
   const [error, setError] = useState(null);
 
   const fetchCryptoData = async () => {
+    if (!search) {
+      setError('Please enter a cryptocurrency name');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&api_key=${import.meta.env.VITE_CRYPTOCOMPARE_API_KEY}`);
-
+      const response = await fetch(`http://localhost:5001/api/data/crypto?name=${search}`);
       if (!response.ok) {
         const errorDetails = await response.json();
-        console.error('Error response from CryptoCompare API:', errorDetails);
+        console.error('Error response from API:', errorDetails);
         throw new Error('Failed to fetch data');
       }
 
       const result = await response.json();
-      console.log('API response:', result);
-      setCrypto(result.Data || []);
+      setCrypto(result || []);
     } catch (error) {
       console.error('Error details:', error);
       setError('Error fetching crypto data');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      fetchCryptoData();
     }
   };
 
@@ -43,12 +52,11 @@ function CryptoMarket() {
         placeholder="Search Crypto..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
       <button onClick={fetchCryptoData}>Fetch</button>
-
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-
       {filteredCrypto.map((coin) => (
         <div key={coin.CoinInfo.Id}>
           <p>Symbol: {coin.CoinInfo.Name}</p>

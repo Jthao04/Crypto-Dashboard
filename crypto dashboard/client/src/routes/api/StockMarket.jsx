@@ -1,43 +1,42 @@
 import React, { useState } from 'react';
 
 function StockMarket() {
-  const [stocks, setStocks] = useState([]);
   const [symbol, setSymbol] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
   const fetchStockData = async () => {
+    if (!symbol) {
+      setError('Please enter a stock symbol');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
-    const API_KEY = import.meta.env.VITE_ALPHAVANTAGE_API_KEY;
-    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${API_KEY}`;
-
     try {
-      const response = await fetch(url);
-      const result = await response.json();
-
-      if (result["Time Series (5min)"]) {
-        const latestTime = Object.keys(result["Time Series (5min)"])[0];
-        const latestData = result["Time Series (5min)"][latestTime];
-
-        setData({
-          time: latestTime,
-          open: latestData["1. open"],
-          high: latestData["2. high"],
-          low: latestData["3. low"],
-          close: latestData["4. close"],
-          volume: latestData["5. volume"],
-        });
-      } else {
-        setError("Invalid Symbol or API Limit Reached");
+      const response = await fetch(`http://localhost:5001/api/data/stock?symbol=${symbol}`);
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        console.error('Error response from API:', errorDetails);
+        throw new Error('Failed to fetch data');
       }
-    } catch (err) {
-      setError("Error fetching data");
-    }
 
-    setLoading(false);
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error('Error details:', error);
+      setError('Error fetching stock data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      fetchStockData();
+    }
   };
 
   return (
@@ -45,8 +44,10 @@ function StockMarket() {
       <h1>Stock Market</h1>
       <input
         type="text"
+        placeholder="Search Stock..."
         value={symbol}
         onChange={(e) => setSymbol(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
       <button onClick={fetchStockData}>Fetch</button>
       {loading && <p>Loading...</p>}
