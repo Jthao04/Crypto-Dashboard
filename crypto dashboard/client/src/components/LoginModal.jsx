@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,7 +14,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("http://localhost:5001/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -27,6 +27,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
       alert("✅ Login successful!");
       onClose(); // Close the modal after login
+      onLoginSuccess(); // Update authentication state
       navigate("/dashboard"); // Redirect after login
     } catch (err) {
       setError(err.message || "Login failed");
