@@ -4,6 +4,7 @@ import CryptoMarket from './routes/api/CryptoMarket';
 import StockMarket from './routes/api/StockMarket';
 import Navbar from './components/Navbar';
 import LoginModal from "./components/LoginModal";
+import RegisterModal from './components/RegistrationModal';
 import './App.css';
 
 function Home() {
@@ -12,6 +13,13 @@ function Home() {
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to manage authentication status
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+    setIsLoginOpen(false);
+  };
 
   return (
     <Router>
@@ -26,14 +34,24 @@ function App() {
           Open Login
         </button>
 
-        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+        <button
+          onClick={() => setIsRegisterOpen(true)}
+          className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 ml-4"
+        >
+          Open Register
+        </button>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/crypto-market" element={<CryptoMarket />} />
-          <Route path="/stock-market" element={<StockMarket />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
+        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
+        <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+
+        {isAuthenticated && (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/crypto-market" element={<CryptoMarket />} />
+            <Route path="/stock-market" element={<StockMarket />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        )}
       </div>
     </Router>
   );

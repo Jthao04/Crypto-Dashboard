@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import CryptoWatchlist from './CryptoWatchList';
 
 function CryptoMarket() {
   const [crypto, setCrypto] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [watchlistUpdated, setWatchlistUpdated] = useState(false); // State to trigger re-render
 
   const fetchCryptoData = async () => {
     if (!search) {
@@ -39,6 +41,30 @@ function CryptoMarket() {
     }
   };
 
+  const addToWatchlist = async (coin) => {
+    try {
+      await fetch('http://localhost:5001/api/data/cryptoWatchlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          symbol: coin.CoinInfo.Name,
+          name: coin.CoinInfo.FullName,
+          price: coin.RAW.USD.PRICE,
+          change24h: coin.RAW.USD.CHANGEPCT24HOUR,
+          volume24h: coin.RAW.USD.VOLUME24HOUR,
+          lastUpdated: new Date(coin.RAW.USD.LASTUPDATE * 1000),
+        }),
+      });
+      alert(`${coin.CoinInfo.FullName} added to watchlist`);
+      setWatchlistUpdated(!watchlistUpdated); // Toggle state to trigger re-render
+    } catch (error) {
+      console.error('Error adding to watchlist:', error);
+      alert('Failed to add to watchlist');
+    }
+  };
+
   const filteredCrypto = crypto.filter(coin =>
     coin.CoinInfo.Name.toLowerCase().includes(search.toLowerCase()) ||
     coin.CoinInfo.FullName.toLowerCase().includes(search.toLowerCase())
@@ -65,8 +91,10 @@ function CryptoMarket() {
           <p>Change (24h): {coin.RAW.USD.CHANGEPCT24HOUR.toFixed(2)}%</p>
           <p>Volume (24h): ${coin.RAW.USD.VOLUME24HOUR.toLocaleString()}</p>
           <p>Last Updated: {new Date(coin.RAW.USD.LASTUPDATE * 1000).toLocaleString()}</p>
+          <button onClick={() => addToWatchlist(coin)}>Add to Watchlist</button>
         </div>
       ))}
+      <CryptoWatchlist key={watchlistUpdated} /> {/* Re-render when watchlistUpdated changes */}
     </div>
   );
 }
