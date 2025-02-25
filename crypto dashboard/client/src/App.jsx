@@ -24,6 +24,12 @@ function App() {
 
   return (
     <Router>
+      <Navbar
+        onLoginClick={() => setIsLoginOpen(true)}
+        onRegisterClick={() => setIsRegisterOpen(true)}
+      />
+      <div className="App p-8">
+        {!isAuthenticated && <h1 className="text-3xl mb-6">Welcome to Stock & Crypto Watcher</h1>}
       <Navbar />
       <div
         className="App min-vh-100 d-flex flex-column justify-content-center align-items-center"

@@ -42,27 +42,31 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
         <form onSubmit={handleLogin}>
-          <label className="block mb-2">
-            Username:
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="border p-2 w-full rounded"
-            />
-          </label>
+          <div className="mb-4">
+            <label className="block mb-2">
+              Username:
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="border p-2 w-full rounded"
+              />
+            </label>
+          </div>
 
-          <label className="block mb-4">
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="border p-2 w-full rounded"
-            />
-          </label>
+          <div className="mb-4">
+            <label className="block mb-2">
+              Password:
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="border p-2 w-full rounded"
+              />
+            </label>
+          </div>
 
           <button
             type="submit"

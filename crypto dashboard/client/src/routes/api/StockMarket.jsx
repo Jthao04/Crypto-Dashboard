@@ -5,7 +5,7 @@ function StockMarket() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
-  const [watchlist, setWatchlist] = useState([]); // Define and initialize the watchlist state variable
+  const [watchlist, setWatchlist] = useState([]);
 
   const fetchStockData = async () => {
     if (!symbol) {
@@ -40,9 +40,28 @@ function StockMarket() {
     }
   };
 
-  const addToWatchlist = () => {
-    setWatchlist([...watchlist, symbol]);
-    setSymbol('');
+  const addToWatchlist = async () => {
+    if (!symbol) {
+      setError('Please enter a stock symbol');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/data/stock?symbol=${symbol}`);
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        console.error('Error response from API:', errorDetails);
+        throw new Error('Failed to fetch data');
+      }
+
+      const result = await response.json();
+      const openPrice = result.open;
+      setWatchlist([...watchlist, { symbol, openPrice }]);
+      setSymbol('');
+    } catch (error) {
+      console.error('Error details:', error);
+      setError('Error fetching stock data');
+    }
   };
 
   return (
@@ -71,8 +90,10 @@ function StockMarket() {
       )}
       <h2>Watchlist</h2>
       <ul>
-        {watchlist.map((stockSymbol) => (
-          <li key={stockSymbol}>{stockSymbol}</li>
+        {watchlist.map((stock) => (
+          <li key={stock.symbol}>
+            {stock.symbol} - Open Price: {stock.openPrice}
+          </li>
         ))}
       </ul>
     </div>
