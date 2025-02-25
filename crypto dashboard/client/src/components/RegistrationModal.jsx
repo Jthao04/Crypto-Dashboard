@@ -1,18 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterModal = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
-  if (!isOpen) return null; // Don't render the modal if it's not open
+  if (!isOpen) return null; // Hide the modal if not open
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccess(false);
 
     try {
       const response = await fetch("http://localhost:5001/api/auth/register", {
@@ -23,15 +23,11 @@ const RegisterModal = ({ isOpen, onClose }) => {
 
       if (!response.ok) throw new Error("Registration failed");
 
-      const data = await response.json();
-      console.log("User registered:", data);
-      setSuccess(true);
-      alert("✅ Registration successful! You can now log in.");
-
-      // Close modal after successful registration
-      onClose();
+      alert("✅ Registration successful!");
+      onClose(); // Close the modal after registration
+      navigate("/login"); // Redirect to login page after registration
     } catch (err) {
-      setError(err.message || "An error occurred during registration.");
+      setError(err.message || "Registration failed");
     }
   };
 
@@ -41,41 +37,46 @@ const RegisterModal = ({ isOpen, onClose }) => {
         <h2 className="text-2xl mb-4">Register</h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        {success && <p className="text-green-500 mb-4">Registration successful!</p>}
 
         <form onSubmit={handleRegister}>
-          <label className="block mb-2">
-            Username:
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="border p-2 w-full rounded"
-            />
-          </label>
+          <div className="mb-4">
+            <label className="block mb-2">
+              Username:
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="border p-2 w-full rounded"
+              />
+            </label>
+          </div>
 
-          <label className="block mb-2">
-            Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="border p-2 w-full rounded"
-            />
-          </label>
+          <div className="mb-4">
+            <label className="block mb-2">
+              Email:
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="border p-2 w-full rounded"
+              />
+            </label>
+          </div>
 
-          <label className="block mb-4">
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="border p-2 w-full rounded"
-            />
-          </label>
+          <div className="mb-4">
+            <label className="block mb-2">
+              Password:
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="border p-2 w-full rounded"
+              />
+            </label>
+          </div>
 
           <button
             type="submit"
