@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CryptoMarket from './routes/api/CryptoMarket';
 import StockMarket from './routes/api/StockMarket';
 import Navbar from './components/Navbar';
-import LoginModal from "./components/LoginModal";
+import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegistrationModal';
 import './App.css';
 
@@ -23,23 +23,12 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar
+        onLoginClick={() => setIsLoginOpen(true)}
+        onRegisterClick={() => setIsRegisterOpen(true)}
+      />
       <div className="App p-8">
-        <h1 className="text-3xl mb-6">Welcome to Stock & Crypto Watcher</h1>
-
-        <button
-          onClick={() => setIsLoginOpen(true)}
-          className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600"
-        >
-          Open Login
-        </button>
-
-        <button
-          onClick={() => setIsRegisterOpen(true)}
-          className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 ml-4"
-        >
-          Open Register
-        </button>
+        {!isAuthenticated && <h1 className="text-3xl mb-6">Welcome to Stock & Crypto Watcher</h1>}
 
         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
         <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
