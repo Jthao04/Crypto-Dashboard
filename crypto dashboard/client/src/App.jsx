@@ -4,11 +4,12 @@ import CryptoMarket from './routes/api/CryptoMarket';
 import StockMarket from './routes/api/StockMarket';
 import Navbar from './components/Navbar';
 import LoginModal from "./components/LoginModal";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import RegisterModal from './components/RegistrationModal';
 import './App.css';
 
 function Home() {
-  return <h1>Welcome to the Crypto and Stock Dashboard</h1>;
+  return <h1>Welcome to MoneyMap</h1>;
 }
 
 function App() {
@@ -24,19 +25,25 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="App p-8">
-        <h1 className="text-3xl mb-6">Welcome to Stock & Crypto Watcher</h1>
+      <div
+        className="App min-vh-100 d-flex flex-column justify-content-center align-items-center"
+        style={{
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+       }}
+      >
+        <h1 className="text-3xl mb-6 custom-padding">Welcome to Stock & Crypto Watcher</h1>
 
         <button
           onClick={() => setIsLoginOpen(true)}
-          className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600"
+          className="bg-green-500 text-black py-2 px-6 rounded hover:bg-green-600"
         >
           Open Login
         </button>
 
         <button
           onClick={() => setIsRegisterOpen(true)}
-          className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 ml-4"
+          className="bg-blue-500 text-black py-2 px-6 rounded hover:bg-blue-600 ml-4"
         >
           Open Register
         </button>
