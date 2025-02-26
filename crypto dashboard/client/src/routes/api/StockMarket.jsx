@@ -61,7 +61,7 @@ function StockMarket() {
 
       const result = await response.json();
       const openPrice = result.open;
-      setWatchlist([...watchlist, { symbol, openPrice }]);
+      setWatchlist([...watchlist, { symbol: symbol.toUpperCase(), openPrice, }]);
       setSymbol("");
     } catch (error) {
       console.error("Error details:", error);
