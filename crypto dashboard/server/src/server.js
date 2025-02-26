@@ -28,11 +28,7 @@ app.use('/api', protectedRoutes);
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, async () => {
     console.log(`Server is listening on port ${PORT}`);
-    try {
-      await sequelize.authenticate();
-      console.log('Database connected!');
-    } catch (error) {
-      console.error('Unable to connect to the database:', error);
-    }
+    await sequelize.authenticate();
+    console.log('Database connected!');
   });
 });
