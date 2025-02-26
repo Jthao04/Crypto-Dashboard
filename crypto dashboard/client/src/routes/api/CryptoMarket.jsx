@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CryptoWatchlist from './CryptoWatchList';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function CryptoMarket() {
   const [crypto, setCrypto] = useState([]);
@@ -71,27 +72,35 @@ function CryptoMarket() {
   );
 
   return (
-    <div>
+    <div className="container">
       <h1>Crypto Market</h1>
-      <input
-        type="text"
-        placeholder="Search Crypto..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onKeyPress={handleKeyPress}
-      />
-      <button onClick={fetchCryptoData}>Fetch</button>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search Crypto..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyPress={handleKeyPress}
+        />
+        <div className="input-group-append">
+          <button className="btn btn-primary" onClick={fetchCryptoData}>
+            Fetch
+          </button>
+        </div>
+      </div>
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
       {filteredCrypto.map((coin) => (
-        <div key={coin.CoinInfo.Id}>
-          <p>Symbol: {coin.CoinInfo.Name}</p>
-          <p>Name: {coin.CoinInfo.FullName}</p>
-          <p>Price: ${coin.RAW.USD.PRICE.toFixed(2)}</p>
-          <p>Change (24h): {coin.RAW.USD.CHANGEPCT24HOUR.toFixed(2)}%</p>
-          <p>Volume (24h): ${coin.RAW.USD.VOLUME24HOUR.toLocaleString()}</p>
-          <p>Last Updated: {new Date(coin.RAW.USD.LASTUPDATE * 1000).toLocaleString()}</p>
-          <button onClick={() => addToWatchlist(coin)}>Add to Watchlist</button>
+        <div key={coin.CoinInfo.Id} className="card mb-3">
+          <div className="card-body">
+            <h5 className="card-title">{coin.CoinInfo.FullName} ({coin.CoinInfo.Name})</h5>
+            <p className="card-text">Price: ${coin.RAW.USD.PRICE.toFixed(2)}</p>
+            <p className="card-text">Change (24h): {coin.RAW.USD.CHANGEPCT24HOUR.toFixed(2)}%</p>
+            <p className="card-text">Volume (24h): ${coin.RAW.USD.VOLUME24HOUR.toLocaleString()}</p>
+            <p className="card-text">Last Updated: {new Date(coin.RAW.USD.LASTUPDATE * 1000).toLocaleString()}</p>
+            <button className="btn btn-secondary" onClick={() => addToWatchlist(coin)}>Add to Watchlist</button>
+          </div>
         </div>
       ))}
       <CryptoWatchlist key={watchlistUpdated} /> {/* Re-render when watchlistUpdated changes */}

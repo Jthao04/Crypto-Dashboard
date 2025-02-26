@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function CryptoWatchlist() {
   const [watchlist, setWatchlist] = useState([]);
@@ -35,8 +36,8 @@ function CryptoWatchlist() {
     <div>
       <h2>Crypto Watchlist</h2>
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      <table>
+      {error && <p className="text-danger">{error}</p>}
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Symbol</th>
