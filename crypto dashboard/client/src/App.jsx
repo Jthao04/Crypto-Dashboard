@@ -9,7 +9,7 @@ import './App.css';
 import backgroundImage from './images/IMG_4116.jpeg';
 
 function Home() {
-  return <h1>Welcome to MoneyMap</h1>;
+  return <h1 class="display-1">Welcome to MoneyMap</h1>;
 }
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
         style={{ backgroundImage: `url(${backgroundImage})` }}
       ></div>
       <div className="App p-8">
-        {!isAuthenticated && <h1 className="text-3xl mb-6 border-welcome">Welcome to Stock & Crypto Watcher</h1>}
+        {!isAuthenticated && <h1 className="text-3xl mb-6 border-welcome">Welcome to MoneyMap</h1>}
 
         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
         <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
