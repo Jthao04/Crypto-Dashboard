@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import LoginModal from "./components/LoginModal";
 import RegisterModal from './components/RegistrationModal';
 import './App.css';
+import backgroundImage from './images/IMG_4116.jpeg';
 
 function Home() {
   return <h1>Welcome to MoneyMap</h1>;
@@ -20,34 +21,20 @@ function App() {
     setIsAuthenticated(true);
     setIsLoginOpen(false);
   };
-    
-  }
+
   return (
     <Router>
       <Navbar
         onLoginClick={() => setIsLoginOpen(true)}
         onRegisterClick={() => setIsRegisterOpen(true)}
       />
+      <div 
+        className="background"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      ></div>
       <div className="App p-8">
-        {!isAuthenticated && <h1 className="text-3xl mb-6">Welcome to Stock & Crypto Watcher</h1>}
+        {!isAuthenticated && <h1 className="text-3xl mb-6 border-welcome">Welcome to Stock & Crypto Watcher</h1>}
 
-      {!isAuthenticated && (
-      <div>
-        <button
-          onClick={() => setIsLoginOpen(true)}
-          className="bg-green-500 text-black py-2 px-6 rounded hover:bg-green-600"
-        >
-          Open Login
-        </button>
-
-        <button
-          onClick={() => setIsRegisterOpen(true)}
-          className="btn btn-primary text-black py-2 px-6 rounded hover:bg-blue-600 ml-4"
-        >
-          Open Register
-        </button>
-       </div>
-      )} 
         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
         <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
 
@@ -62,6 +49,6 @@ function App() {
       </div>
     </Router>
   );
-
+}
 
 export default App;

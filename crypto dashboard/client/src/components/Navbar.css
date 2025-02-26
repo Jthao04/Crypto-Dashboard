@@ -2,14 +2,15 @@
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background-color: #202020;
+  background-color: #2e2626;
   position: fixed;
   top: 0px;
-  padding-inline: 150px;
-  border-top-right-radius:30px;
-  border-bottom-right-radius:30px; 
-  border-top-left-radius:30px;
-  border-bottom-left-radius:30px; 
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; 
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px; 
 }
 
 .navbar-list {
@@ -32,3 +33,4 @@
 .navbar-link:hover {
   text-decoration: underline;
 }
+
