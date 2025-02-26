@@ -21,7 +21,10 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+.background-image {
+  background-image: url(dashboard\client\public\IMG_4115.jpeg);
 
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

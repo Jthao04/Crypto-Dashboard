@@ -4,7 +4,6 @@ import CryptoMarket from './routes/api/CryptoMarket';
 import StockMarket from './routes/api/StockMarket';
 import Navbar from './components/Navbar';
 import LoginModal from "./components/LoginModal";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import RegisterModal from './components/RegistrationModal';
 import './App.css';
 
@@ -15,13 +14,14 @@ function Home() {
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to manage authentication status
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
     setIsLoginOpen(false);
   };
-
+    
+  }
   return (
     <Router>
       <Navbar
@@ -30,16 +30,9 @@ function App() {
       />
       <div className="App p-8">
         {!isAuthenticated && <h1 className="text-3xl mb-6">Welcome to Stock & Crypto Watcher</h1>}
-      <Navbar />
-      <div
-        className="App min-vh-100 d-flex flex-column justify-content-center align-items-center"
-        style={{
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-       }}
-      >
-        <h1 className="text-3xl mb-6 custom-padding">Welcome to Stock & Crypto Watcher</h1>
 
+      {!isAuthenticated && (
+      <div>
         <button
           onClick={() => setIsLoginOpen(true)}
           className="bg-green-500 text-black py-2 px-6 rounded hover:bg-green-600"
@@ -49,11 +42,12 @@ function App() {
 
         <button
           onClick={() => setIsRegisterOpen(true)}
-          className="bg-blue-500 text-black py-2 px-6 rounded hover:bg-blue-600 ml-4"
+          className="btn btn-primary text-black py-2 px-6 rounded hover:bg-blue-600 ml-4"
         >
           Open Register
         </button>
-
+       </div>
+      )} 
         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLoginSuccess={handleLoginSuccess} />
         <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
 
@@ -68,6 +62,6 @@ function App() {
       </div>
     </Router>
   );
-}
+
 
 export default App;
