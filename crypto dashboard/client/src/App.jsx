@@ -5,6 +5,7 @@ import StockMarket from './routes/api/StockMarket';
 import Navbar from './components/Navbar';
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegistrationModal';
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 function Home() {
