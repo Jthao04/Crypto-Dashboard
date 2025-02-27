@@ -1,36 +1,10 @@
-html,body {
-  height: 100%;
-  margin: 0;
-  flex-direction: column;
-  align-items: center;
-  display: flex;
-
-}
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-  position: relative;
 }
-.background {
-  top: 0;
-  left: 0;
-  width: 100%;
-  position: fixed;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-}
-.border-welcome {
-  border: 2px dotted #010107;
-  padding: 1rem;
-  border-radius: 8px;
-}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -41,7 +15,7 @@ html,body {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #50d1f5aa);
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
@@ -66,4 +40,3 @@ html,body {
 .read-the-docs {
   color: #888;
 }
-
