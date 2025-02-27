@@ -7,7 +7,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  if (!isOpen) return null; // Hide the modal if not open
+  if (!isOpen) return null;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block mb-2" style={{ color: 'white' }}> {/* Inline CSS to change label color to white */}
+            <label className="block mb-2" style={{ color: 'white' }}>
               Password:
               <input
                 type="password"
