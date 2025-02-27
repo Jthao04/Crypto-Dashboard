@@ -1,8 +1,36 @@
+html,body {
+  height: 100%;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  display: inline;
+
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  position: relative;
+}
+.background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+.border-welcome {
+  border: 2px solid #060701;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family:Georgia, 'Times New Roman', Times, serif
 }
 
 .logo {
