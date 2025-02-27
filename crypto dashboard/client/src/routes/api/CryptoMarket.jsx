@@ -6,7 +6,7 @@ function CryptoMarket() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [watchlistUpdated, setWatchlistUpdated] = useState(false); // State to trigger re-render
+  const [watchlistUpdated, setWatchlistUpdated] = useState(false); 
 
   const fetchCryptoData = async () => {
     if (!search) {
