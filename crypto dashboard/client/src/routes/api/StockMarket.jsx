@@ -61,7 +61,7 @@ function StockMarket() {
 
       const result = await response.json();
       const openPrice = result.open;
-      setWatchlist([...watchlist, { symbol: symbol.toUpperCase(), openPrice, }]);
+      setWatchlist([...watchlist, { symbol: symbol.toUpperCase(), openPrice }]);
       setSymbol("");
     } catch (error) {
       console.error("Error details:", error);
@@ -71,7 +71,7 @@ function StockMarket() {
 
   return (
     <div className="container">
-      <h1>Stock Market</h1>
+      <h1 style={{ color: 'white' }}>Stock Market</h1> {/* Inline CSS to change header color to white */}
       <div className="input-group mb-3">
         <input
           type="text"
@@ -91,30 +91,30 @@ function StockMarket() {
         </div>
       </div>
       {loading && <p>Loading...</p>}
-      {error && <p className="text-danger">{error}</p>}
+      {error && <p style={{ color: 'white' }}>{error}</p>}
       {data && (
         <div>
-          <p>Time: {data.time}</p>
-          <p>Open: {data.open}</p>
-          <p>High: {data.high}</p>
-          <p>Low: {data.low}</p>
-          <p>Close: {data.close}</p>
-          <p>Volume: {data.volume}</p>
+          <p style={{ color: 'white' }}>Time: {data.time}</p>
+          <p style={{ color: 'white' }}>Open: {data.open}</p>
+          <p style={{ color: 'white' }}>High: {data.high}</p>
+          <p style={{ color: 'white' }}>Low: {data.low}</p>
+          <p style={{ color: 'white' }}>Close: {data.close}</p>
+          <p style={{ color: 'white' }}>Volume: {data.volume}</p>
         </div>
       )}
-      <h2>Watchlist</h2>
+      <h2 style={{ color: 'white' }}>Watchlist</h2>
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Symbol</th>
-            <th>Open Price</th>
+            <th style={{ color: 'white' }}>Symbol</th>
+            <th style={{ color: 'white' }}>Open Price</th>
           </tr>
         </thead>
         <tbody>
           {watchlist.map((stock) => (
             <tr key={stock.symbol}>
-              <td>{stock.symbol}</td>
-              <td>{stock.openPrice}</td>
+              <td style={{ color: 'white' }}>{stock.symbol}</td>
+              <td style={{ color: 'white' }}>{stock.openPrice}</td>
             </tr>
           ))}
         </tbody>

@@ -58,7 +58,7 @@ function CryptoMarket() {
         }),
       });
       alert(`${coin.CoinInfo.FullName} added to watchlist`);
-      setWatchlistUpdated(!watchlistUpdated); // Toggle state to trigger re-render
+      setWatchlistUpdated(!watchlistUpdated);
     } catch (error) {
       console.error('Error adding to watchlist:', error);
       alert('Failed to add to watchlist');
@@ -72,7 +72,7 @@ function CryptoMarket() {
 
   return (
     <div>
-      <h1>Crypto Market</h1>
+      <h1 style={{ color: 'white' }}>Crypto Market</h1>
       <input
         type="text"
         placeholder="Search Crypto..."
@@ -94,7 +94,7 @@ function CryptoMarket() {
           <button onClick={() => addToWatchlist(coin)}>Add to Watchlist</button>
         </div>
       ))}
-      <CryptoWatchlist key={watchlistUpdated} /> {/* Re-render when watchlistUpdated changes */}
+      <CryptoWatchlist key={watchlistUpdated} />
     </div>
   );
 }
