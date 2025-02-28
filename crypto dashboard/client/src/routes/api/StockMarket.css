@@ -12,22 +12,22 @@
 }
 
 .table-striped {
-  background-color: #333;
+  background-color: #333; 
 }
 
 .table-striped th,
 .table-striped td {
-  color: white;
-  background-color: #333;
-  border: 1px solid white;
+  color: white; 
+  background-color: #333; 
+  border: 1px solid white; 
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #333;
+  background-color: #333; 
 }
 
 .table-striped tbody tr:nth-of-type(even) {
-  background-color: #444;
+  background-color: #333; 
 }
 
 h1, h2, p.error {
@@ -35,5 +35,17 @@ h1, h2, p.error {
 }
 
 .text-large {
-  font-size: 1.25rem; /* Set larger font size */
+  font-size: 1.25rem;
+}
+
+.btn-black {
+  background-color: rgb(43, 38, 38); 
+  color: white; 
+  border: none; 
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem; 
+}
+
+.btn-black:hover {
+  background-color: #333; 
 }

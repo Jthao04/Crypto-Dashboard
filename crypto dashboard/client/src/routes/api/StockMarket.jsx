@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./StockMarket.css"; // Import the CSS file
+import "./StockMarket.css"; 
 
 function StockMarket() {
   const [symbol, setSymbol] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
-  const [watchlist, setWatchlist] = useState(() => {
-    // Retrieve watchlist from localStorage on initial load
-    const savedWatchlist = localStorage.getItem("stockWatchlist");
-    return savedWatchlist ? JSON.parse(savedWatchlist) : [];
-  });
-
-  useEffect(() => {
-    // Save watchlist to localStorage whenever it changes
-    localStorage.setItem("stockWatchlist", JSON.stringify(watchlist));
-  }, [watchlist]);
+  const [watchlist, setWatchlist] = useState([]);
 
   const fetchStockData = async () => {
     if (!symbol) {
@@ -38,11 +29,10 @@ function StockMarket() {
       }
 
       const result = await response.json();
-      console.log("Fetched data:", result); // Debugging statement
       setData(result);
     } catch (error) {
       console.error("Error details:", error);
-      setError("Error fetching stock data, API call limit reached or invalid symbol");
+      setError("Error fetching stock data");
     } finally {
       setLoading(false);
     }
@@ -54,30 +44,30 @@ function StockMarket() {
     }
   };
 
-  const addToWatchlist = () => {
-    console.log("Data before adding to watchlist:", data); // Debugging statement
-    if (!data || !data.symbol || !data.open) {
-      setError("Invalid stock data. Please fetch valid stock data before adding to the watchlist.");
+  const addToWatchlist = async () => {
+    if (!symbol) {
+      setError("Please enter a stock symbol");
       return;
     }
 
-    const newWatchlistItem = {
-      symbol: data.symbol.toUpperCase(),
-      openPrice: data.open,
-    };
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/data/stock?symbol=${symbol}`
+      );
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        console.error("Error response from API:", errorDetails);
+        throw new Error("Failed to fetch data");
+      }
 
-    // Check if the item already exists in the watchlist
-    const itemExists = watchlist.some(item => item.symbol === newWatchlistItem.symbol);
-
-    if (!itemExists) {
-      setWatchlist([...watchlist, newWatchlistItem]);
-      alert(`${data.symbol} added to watchlist`);
-    } else {
-      alert(`${data.symbol} is already in the watchlist`);
+      const result = await response.json();
+      const openPrice = result.open;
+      setWatchlist([...watchlist, { symbol: symbol.toUpperCase(), openPrice: openPrice }]);
+      setSymbol("");
+    } catch (error) {
+      console.error("Error details:", error);
+      setError("Error fetching stock data");
     }
-
-    setSymbol("");
-    setData(null);
   };
 
   return (
@@ -93,27 +83,27 @@ function StockMarket() {
           onKeyPress={handleKeyPress}
         />
         <div className="input-group-append">
-          <button className="btn btn-dark" onClick={fetchStockData}>
+          <button className="btn btn-black" onClick={fetchStockData}>
             Fetch
+          </button>
+          <button className="btn btn-black" onClick={addToWatchlist}>
+            Add to Watchlist
           </button>
         </div>
       </div>
       {loading && <p>Loading...</p>}
-      {error && <p className="error">{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
       {data && (
         <div>
-          <p className="text-large">Time: {data.time}</p>
-          <p className="text-large">Open: {data.open}</p>
-          <p className="text-large">High: {data.high}</p>
-          <p className="text-large">Low: {data.low}</p>
-          <p className="text-large">Close: {data.close}</p>
-          <p className="text-large">Volume: {data.volume}</p>
-          <button className="btn btn-secondary" onClick={addToWatchlist}>
-            Add to Watchlist
-          </button>
+          <p>Time: {data.time}</p>
+          <p>Open: {data.open}</p>
+          <p>High: {data.high}</p>
+          <p>Low: {data.low}</p>
+          <p>Close: {data.close}</p>
+          <p>Volume: {data.volume}</p>
         </div>
       )}
-      <h2>Stock Watchlist</h2>
+      <h2>Watchlist</h2>
       <table className="table table-striped">
         <thead>
           <tr>
