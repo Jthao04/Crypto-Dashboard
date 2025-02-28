@@ -38,10 +38,11 @@ function StockMarket() {
       }
 
       const result = await response.json();
+      console.log("Fetched data:", result); // Debugging statement
       setData(result);
     } catch (error) {
       console.error("Error details:", error);
-      setError("Error fetching stock data");
+      setError("Error fetching stock data, API call limit reached or invalid symbol");
     } finally {
       setLoading(false);
     }
@@ -54,6 +55,7 @@ function StockMarket() {
   };
 
   const addToWatchlist = () => {
+    console.log("Data before adding to watchlist:", data); // Debugging statement
     if (!data || !data.symbol || !data.open) {
       setError("Invalid stock data. Please fetch valid stock data before adding to the watchlist.");
       return;
