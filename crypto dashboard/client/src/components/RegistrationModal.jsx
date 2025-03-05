@@ -80,7 +80,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
+            className="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900 w-full"
           >
             Register
           </button>
@@ -88,7 +88,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
 
         <button
           onClick={onClose}
-          className="mt-4 text-gray-600 hover:text-gray-800"
+          className="mt-4 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900 w-full"
         >
           Close
         </button>
