@@ -7,7 +7,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  if (!isOpen) return null; // Hide the modal if not open
+  if (!isOpen) return null;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,9 +26,10 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
       localStorage.setItem("token", token);
 
       alert("✅ Login successful!");
-      onClose(); // Close the modal after login
-      onLoginSuccess(); // Update authentication state
-      navigate("/dashboard"); // Redirect after login
+      onClose();
+      onLoginSuccess();
+      navigate("/dashboard");
+      setError(err.message || "Login failed");
     } catch (err) {
       setError(err.message || "Login failed");
     }
@@ -36,14 +37,14 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full">
-        <h2 className="text-2xl mb-4">Login</h2>
+      <div className="bg-off-white p-8 rounded-xl shadow-lg max-w-sm w-full">
+        <h2 className="text-2xl mb-4" style={{ color: 'white' }}>Login</h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block mb-2">
+            <label className="block mb-2" style={{ color: 'white' }}> 
               Username:
               <input
                 type="text"
@@ -56,7 +57,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block mb-2">
+            <label className="block mb-2" style={{ color: 'white' }}>
               Password:
               <input
                 type="password"
@@ -70,7 +71,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
+            className="mt-4 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900 w-full"
           >
             Log In
           </button>
@@ -78,7 +79,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
         <button
           onClick={onClose}
-          className="mt-4 text-gray-600 hover:text-gray-800"
+          className="mt-4 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900 w-full"
         >
           Close
         </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './CryptoWatchlist.css';
 function CryptoWatchlist() {
   const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,11 +32,11 @@ function CryptoWatchlist() {
   }, []);
 
   return (
-    <div>
+    <div className="crypto-watchlist-container">
       <h2>Crypto Watchlist</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <table>
+      <table className="crypto-watchlist-table">
         <thead>
           <tr>
             <th>Symbol</th>
