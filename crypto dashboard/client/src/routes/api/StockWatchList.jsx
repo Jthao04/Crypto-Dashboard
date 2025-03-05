@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function StockWatchList() {
+
+function StockWatchlist() {
   const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -19,6 +20,7 @@ function StockWatchList() {
         }
 
         const result = await response.json();
+        console.log('Fetched watchlist:', result);
         setWatchlist(result || []);
       } catch (error) {
         console.error('Error details:', error);
@@ -35,23 +37,29 @@ function StockWatchList() {
     <div>
       <h2>Stock Watchlist</h2>
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      <table>
+      {error && <p className="text-danger">{error}</p>}
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Symbol</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Change (24h)</th>
+            <th>Time</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
           </tr>
         </thead>
         <tbody>
           {watchlist.map((stock) => (
             <tr key={stock.symbol}>
               <td>{stock.symbol}</td>
-              <td>{stock.name}</td>
-              <td>${stock.price.toFixed(2)}</td>
-              <td>{stock.change24h.toFixed(2)}%</td>
+              <td>{new Date(stock.time).toLocaleString()}</td>
+              <td>${stock.open.toFixed(2)}</td>
+              <td>${stock.high.toFixed(2)}</td>
+              <td>${stock.low.toFixed(2)}</td>
+              <td>${stock.close.toFixed(2)}</td>
+              <td>{stock.volume.toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
@@ -60,4 +68,4 @@ function StockWatchList() {
   );
 }
 
-export default StockWatchList;
+export default StockWatchlist;
