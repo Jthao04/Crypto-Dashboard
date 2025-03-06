@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import CryptoWatchlist from '../models/CryptoWatchlist.js';
+import StockWatchlist from '../models/StockWatchlist.js';
 
 export const getCryptoData = async (req, res) => {
     const { name } = req.query;
@@ -39,6 +40,26 @@ export const getStockData = async (req, res) => {
         res.status(500).json({ message: 'Error fetching stock data' });
     }
 };
+
+export const getStockWatchlist = async (req, res) => {
+    try {
+        const stocks = await StockWatchlist.findAll();
+        res.json(stocks);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching stock watchlist' });
+    }
+};
+
+export const addStockWatchlist = async (req, res) => {
+    const { time, open, high, low, close, volume } = req.body;
+    try {
+        const newStock = await StockWatchlist.create({ time, open, high, low, close, volume });
+        res.status(201).json(newStock);
+    } catch (error) {
+        res.status(500).json({ message: 'Error adding stock to watchlist' });
+    }
+};
+
 
 export const getCryptoWatchlist = async (req, res) => {
     try {
