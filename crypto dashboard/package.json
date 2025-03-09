@@ -16,7 +16,6 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "concurrently": "^9.1.2",
-    "connection-manager": "^1.0.5"
+    "concurrently": "^9.1.2"
   }
 }
