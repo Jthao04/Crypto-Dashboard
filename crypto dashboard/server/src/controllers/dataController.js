@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import CryptoWatchlist from '../models/CryptoWatchlist.js';
-import StockWatchlist from '../models/StockWatchlist.js';
+import StockWatchlist from '../models/StockWatchlist.js'; 
 
 export const getCryptoData = async (req, res) => {
     const { name } = req.query;
@@ -41,25 +41,37 @@ export const getStockData = async (req, res) => {
     }
 };
 
-export const getStockWatchlist = async (req, res) => {
+export const addStockToWatchlist = async (req, res) => {
     try {
-        const stocks = await StockWatchlist.findAll();
-        res.json(stocks);
+      const { symbol, name, price, change24h, volume24h, lastUpdated } = req.body;
+  
+     
+      if (!symbol || !name || !price) {
+        return res.status(400).json({ error: 'Symbol, name, and price are required' });
+      }
+  
+      const values = [symbol, name, price, change24h, volume24h, lastUpdated || new Date()];
+  
+      const { rows } = await pool.query(query, values);
+  
+      res.status(201).json({
+        message: `${name} added to watchlist`,
+        stock: rows[0],
+      });
+    } catch (error) {
+      console.error('Error adding stock to watchlist:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+  export const getStockWatchlist = async (req, res) => {
+    try {
+        const cryptos = await StockWatchlist.findAll();
+        res.json(cryptos);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching stock watchlist' });
     }
 };
-
-export const addStockWatchlist = async (req, res) => {
-    const { time, open, high, low, close, volume } = req.body;
-    try {
-        const newStock = await StockWatchlist.create({ time, open, high, low, close, volume });
-        res.status(201).json(newStock);
-    } catch (error) {
-        res.status(500).json({ message: 'Error adding stock to watchlist' });
-    }
-};
-
 
 export const getCryptoWatchlist = async (req, res) => {
     try {

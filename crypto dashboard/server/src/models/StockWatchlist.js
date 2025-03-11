@@ -5,10 +5,14 @@ const StockWatchlist = sequelize.define('StockWatchlist', {
   symbol: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+    unique: true, 
   },
   name: {
     type: DataTypes.STRING,
+    allowNull: false,
+  },
+  time: {
+    type: DataTypes.DATE,
     allowNull: false,
   },
   open: {
@@ -29,10 +33,6 @@ const StockWatchlist = sequelize.define('StockWatchlist', {
   },
   volume: {
     type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  time: {
-    type: DataTypes.DATE,
     allowNull: false,
   },
 });

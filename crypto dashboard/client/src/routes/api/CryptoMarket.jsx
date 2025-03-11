@@ -1,6 +1,13 @@
+
 import React, { useState } from 'react';
 import CryptoWatchlist from './CryptoWatchList';
-import './CryptoMarket.css'; // Import the CSS file
+import './CryptoMarket.css'; 
+
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
+
 
 function CryptoMarket() {
   const [crypto, setCrypto] = useState([]);
@@ -19,7 +26,7 @@ function CryptoMarket() {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:5001/api/data/crypto?name=${search}`);
+      const response = await fetch(`${API_BASE_URL}/api/data/crypto?name=${search}`,);
       if (!response.ok) {
         const errorDetails = await response.json();
         console.error('Error response from API:', errorDetails);
@@ -44,7 +51,7 @@ function CryptoMarket() {
 
   const addToWatchlist = async (coin) => {
     try {
-      await fetch('http://localhost:5001/api/data/cryptoWatchlist', {
+      await fetch(`${API_BASE_URL}/api/data/cryptoWatchlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ function StockWatchlist() {
       setError(null);
 
       try {
-        const response = await fetch('http://localhost:5001/api/data/stockWatchlist');
+        const response = await fetch('http://localhost:3000/api/data/stockWatchlist');
         if (!response.ok) {
           const errorDetails = await response.json();
           console.error('Error response from API:', errorDetails);
