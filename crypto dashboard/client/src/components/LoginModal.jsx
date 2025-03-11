@@ -31,7 +31,6 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
       onClose();
       onLoginSuccess();
       navigate("/dashboard");
-      setError(err.message || "Login failed");
     } catch (err) {
       setError(err.message || "Login failed");
     }
@@ -46,14 +45,14 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block mb-2" style={{ color: 'white' }}> 
+            <label className="block mb-2" style={{ color: 'white' }}>
               Username:
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="border p-2 w-full rounded"
+                className="border p-2 w-full rounded bg-black text-white"
               />
             </label>
           </div>
@@ -66,7 +65,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="border p-2 w-full rounded"
+                className="border p-2 w-full rounded bg-black text-white"
               />
             </label>
           </div>
