@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './CryptoWatchlist.css';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function CryptoWatchlist() {
   const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,7 +14,7 @@ function CryptoWatchlist() {
       setError(null);
 
       try {
-        const response = await fetch('http://localhost:5001/api/data/cryptoWatchlist');
+        const response = await fetch(`${API_BASE_URL}/api/data/cryptoWatchlist`);
         if (!response.ok) {
           const errorDetails = await response.json();
           console.error('Error response from API:', errorDetails);

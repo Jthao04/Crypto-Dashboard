@@ -7,6 +7,8 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   if (!isOpen) return null;
 
   const handleLogin = async (e) => {
@@ -14,7 +16,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5001/api/auth/login", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

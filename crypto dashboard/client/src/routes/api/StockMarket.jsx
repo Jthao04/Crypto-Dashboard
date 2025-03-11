@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./StockMarket.css"; 
 
+
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function StockMarket() {
   const [symbol, setSymbol] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,7 +24,7 @@ function StockMarket() {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/data/stock?symbol=${symbol}`
+        `${API_BASE_URL}/api/data/stock?symbol=${symbol}`
       );
       if (!response.ok) {
         const errorDetails = await response.json();
@@ -52,7 +56,7 @@ function StockMarket() {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/data/stock?symbol=${symbol}`
+        `${API_BASE_URL}/api/data/stock?symbol=${symbol}`
       );
       if (!response.ok) {
         const errorDetails = await response.json();
@@ -125,3 +129,6 @@ function StockMarket() {
 }
 
 export default StockMarket;
+
+
+
