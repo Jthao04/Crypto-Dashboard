@@ -49,7 +49,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="border p-2 w-full rounded"
+                className="border p-2 w-full rounded bg-black text-white"
               />
             </label>
           </div>
@@ -62,7 +62,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border p-2 w-full rounded"
+                className="border p-2 w-full rounded bg-black text-white"
               />
             </label>
           </div>
@@ -75,7 +75,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="border p-2 w-full rounded"
+                className="border p-2 w-full rounded bg-black text-white"
               />
             </label>
           </div>
