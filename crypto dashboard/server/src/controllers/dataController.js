@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import CryptoWatchlist from '../models/CryptoWatchlist.js';
-import StockWatchlist from '../models/StockWatchlist.js'; 
 
 export const getCryptoData = async (req, res) => {
     const { name } = req.query;

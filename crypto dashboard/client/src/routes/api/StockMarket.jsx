@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./StockMarket.css"; 
 
 
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function StockMarket() {
