@@ -7,8 +7,6 @@ router.get('/crypto', getCryptoData);
 router.get('/stock', getStockData);
 router.get('/cryptoWatchlist', getCryptoWatchlist);
 router.post('/cryptoWatchlist', addCryptoToWatchlist);
-router.get('/stockWatchlist', getStockWatchlist);
-router.post('/stockWatchlist', addStockToWatchlist);
 
 
 export default router;

@@ -14,7 +14,7 @@ function CryptoWatchlist() {
       setError(null);
 
       try {
-        const response = await fetch('${API_BASE_URL}}/api/data/cryptoWatchlist');
+        const response = await fetch(`${API_BASE_URL}/api/data/cryptoWatchlist`);
         if (!response.ok) {
           const errorDetails = await response.json();
           console.error('Error response from API:', errorDetails);

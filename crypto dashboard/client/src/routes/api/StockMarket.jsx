@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./StockMarket.css"; 
+
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function StockMarket() {
   const [symbol, setSymbol] = useState("");
@@ -7,8 +11,6 @@ function StockMarket() {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   const [watchlist, setWatchlist] = useState([]);
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const fetchStockData = async () => {
     if (!symbol) {
@@ -63,7 +65,7 @@ function StockMarket() {
 
       const result = await response.json();
       const openPrice = result.open;
-      setWatchlist([...watchlist, { symbol: symbol.toUpperCase(), openPrice, }]);
+      setWatchlist([...watchlist, { symbol: symbol.toUpperCase(), openPrice: openPrice }]);
       setSymbol("");
     } catch (error) {
       console.error("Error details:", error);
@@ -84,10 +86,10 @@ function StockMarket() {
           onKeyPress={handleKeyPress}
         />
         <div className="input-group-append">
-          <button className="btn btn-primary" onClick={fetchStockData}>
+          <button className="btn btn-black" onClick={fetchStockData}>
             Fetch
           </button>
-          <button className="btn btn-secondary" onClick={addToWatchlist}>
+          <button className="btn btn-black" onClick={addToWatchlist}>
             Add to Watchlist
           </button>
         </div>
@@ -126,3 +128,6 @@ function StockMarket() {
 }
 
 export default StockMarket;
+
+
+
